@@ -8,6 +8,22 @@ app.use(express.static(__dirname + '/public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+const TOKEN = 'pat-na1-718c969c-3419-4d0e-a377-462d5269ef96'; 
+
+async function test() {
+    try {
+        console.log('Testing token on Contacts endpoint...');
+        const res = await axios.get('https://api.hubapi.com/crm/v3/objects/contacts?limit=1', {
+            headers: { 'Authorization': `Bearer ${TOKEN}` }
+        });
+        console.log('SUCCESS! Token is valid.');
+    } catch (e) {
+        console.log('FAILED:', e.response ? e.response.data : e.message);
+    }
+}
+
+test();
+
 const ACCESS_TOKEN = process.env.ACCESS_TOKEN ? process.env.ACCESS_TOKEN.trim() : '';
 
 app.get('/', async (req, res) => {
