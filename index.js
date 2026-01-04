@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const axios = require('axios');
 const app = express();
@@ -7,11 +8,11 @@ app.use(express.static(__dirname + '/public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-const PRIVATE_APP_ACCESS = `pat-na1-718c969c-3419-4d0e-a377-462d5269ef96`;
-
-const OBJECT_TYPE = 'songs';
+const ACCESS_TOKEN = process.env.ACCESS_TOKEN; 
 
 app.get('/', async (req, res) => {
+    const OBJECT_TYPE = 'songs'; 
+    
     const properties = [
         'title',
         'composers',
@@ -25,12 +26,12 @@ app.get('/', async (req, res) => {
     try {
         const response = await axios.get(`https://api.hubapi.com/crm/v3/objects/${OBJECT_TYPE}`, {
             headers: {
-                'Authorization': `Bearer ${PRIVATE_APP_ACCESS}`,
+                'Authorization': `Bearer ${ACCESS_TOKEN}`,
                 'Content-Type': 'application/json'
             },
             params: {
                 properties: properties.join(','),
-                limit: 100 
+                limit: 100
             }
         });
 
@@ -39,7 +40,11 @@ app.get('/', async (req, res) => {
         
     } catch (error) {
         console.error('Error fetching songs:', error.response ? error.response.data : error.message);
-        res.render('home', { title: 'Songs Library', songs: [], error: 'Failed to retrieve songs.' });
+        res.render('home', { 
+            title: 'Songs Library', 
+            songs: [], 
+            error: 'Failed to retrieve songs. Please check your Access Token and Object Type.' 
+        });
     }
 });
 
