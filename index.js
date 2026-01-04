@@ -1,6 +1,4 @@
 require('dotenv').config();
-console.log("Loaded Token:", process.env.ACCESS_TOKEN ? "Yes (Starts with " + process.env.ACCESS_TOKEN.substring(0, 5) + ")" : "NO - Undefined");
-
 const express = require('express');
 const axios = require('axios');
 const app = express();
@@ -13,8 +11,7 @@ app.use(express.json());
 const ACCESS_TOKEN = process.env.ACCESS_TOKEN ? process.env.ACCESS_TOKEN.trim() : '';
 
 app.get('/', async (req, res) => {
-    const OBJECT_TYPE = 'songs'; 
-    
+    const OBJECT_TYPE = 'songs';
     const properties = [
         'title',
         'composers',
@@ -43,11 +40,20 @@ app.get('/', async (req, res) => {
         res.render('home', { title: 'Songs Library', songs });
         
     } catch (error) {
-        console.error('Error fetching songs:', error.response ? error.response.data : error.message);
+        console.error('Error details:', error.response ? error.response.data : error.message);
+        
+        if (error.config && error.config.headers) {
+            const headers = {...error.config.headers};
+            if (headers.Authorization) {
+                headers.Authorization = headers.Authorization.substring(0, 15) + '...';
+            }
+            console.error("DEBUG: Request Headers sent:", headers);
+        }
+
         res.render('home', { 
             title: 'Songs Library', 
             songs: [], 
-            error: 'Failed to retrieve songs. Please check your Access Token and Object Type.' 
+            error: `Error: ${error.response ? error.response.data.message : error.message}` 
         });
     }
 });
