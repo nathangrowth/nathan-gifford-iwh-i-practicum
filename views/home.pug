@@ -1,0 +1,39 @@
+doctype html
+html
+  head
+    title= title
+    style.
+      body { font-family: sans-serif; padding: 20px; }
+      table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+      th, td { padding: 10px; border: 1px solid #ddd; text-align: left; }
+      th { background-color: #f4f4f4; }
+      .error { color: red; font-weight: bold; }
+  body
+    h1 Songs Library
+
+    if error
+      p.error= error
+
+    if songs && songs.length
+      table
+        thead
+          tr
+            th Title
+            th Composers
+            th CCLI #
+            th Year
+            th Lyrics
+            th Publishers
+            th Rights Assoc.
+        tbody
+          each song in songs
+            tr
+              td= song.properties.title
+              td= song.properties.composers
+              td= song.properties.ccli_number
+              td= song.properties.year
+              td= song.properties.lyrics
+              td= song.properties.publishers
+              td= song.properties.performing_rights_association
+    else
+      p No songs found.
