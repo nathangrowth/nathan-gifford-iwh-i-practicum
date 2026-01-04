@@ -10,7 +10,7 @@ app.use(express.static(__dirname + '/public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-const ACCESS_TOKEN = process.env.ACCESS_TOKEN; 
+const ACCESS_TOKEN = process.env.ACCESS_TOKEN ? process.env.ACCESS_TOKEN.trim() : '';
 
 app.get('/', async (req, res) => {
     const OBJECT_TYPE = 'songs'; 
@@ -24,6 +24,8 @@ app.get('/', async (req, res) => {
         'publishers',
         'performing_rights_association'
     ];
+
+    console.log(`Making request to HubSpot... Token length: ${ACCESS_TOKEN.length}`);
 
     try {
         const response = await axios.get(`https://api.hubapi.com/crm/v3/objects/${OBJECT_TYPE}`, {
