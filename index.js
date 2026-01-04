@@ -7,7 +7,7 @@ app.use(express.static(__dirname + '/public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-const PRIVATE_APP_ACCESS = `b9560e7a-de84-4e73-8922-bcee2876729b`;
+const PRIVATE_APP_ACCESS = `pat-na1-718c969c-3419-4d0e-a377-462d5269ef96`;
 
 const OBJECT_TYPE = 'songs';
 
