@@ -7,7 +7,7 @@ app.use(express.static(__dirname + '/public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-const PRIVATE_APP_ACCESS = ``;
+const PRIVATE_APP_ACCESS = `b9560e7a-de84-4e73-8922-bcee2876729b`;
 
 const OBJECT_TYPE = 'songs';
 
@@ -30,7 +30,7 @@ app.get('/', async (req, res) => {
             },
             params: {
                 properties: properties.join(','),
-                limit: 100 // Adjust limit as needed
+                limit: 100 
             }
         });
 
