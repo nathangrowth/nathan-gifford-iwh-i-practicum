@@ -1,4 +1,6 @@
 require('dotenv').config();
+console.log("Loaded Token:", process.env.ACCESS_TOKEN ? "Yes (Starts with " + process.env.ACCESS_TOKEN.substring(0, 5) + ")" : "NO - Undefined");
+
 const express = require('express');
 const axios = require('axios');
 const app = express();
