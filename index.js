@@ -11,31 +11,6 @@ app.use(express.json());
 const ACCESS_TOKEN = process.env.ACCESS_TOKEN ? process.env.ACCESS_TOKEN.trim() : '';
 
 app.get('/', async (req, res) => {
-    // Use the OBJECT_TYPE from your .env file (should be "songs" or "2-12345...")
-    const objectType = process.env.OBJECT_TYPE || 'songs';
-    
-    // We request specific properties like 'name' and 'artist' (adjust these if your properties are named differently)
-    const songsUrl = `https://api.hubapi.com/crm/v3/objects/${objectType}?properties=name,artist`;
-    
-    const headers = {
-        Authorization: `Bearer ${process.env.ACCESS_TOKEN}`,
-        'Content-Type': 'application/json'
-    };
-
-    console.log("Headers: ", headers);
-
-    try {
-        const response = await axios.get(songsUrl, { headers });
-        
-        // Render the 'home' pug template and pass the data as 'songs'
-        res.render('home', { songs: response.data.results });    
-    } catch (error) {
-        console.error('Error fetching songs:', error.response ? error.response.data : error.message);
-        res.status(500).send('Error retrieving songs. Check console for details.');
-    }
-});
-
-app.get('/', async (req, res) => {
     const OBJECT_TYPE = 'songs';
     const properties = [
         'title',
@@ -47,6 +22,7 @@ app.get('/', async (req, res) => {
         'performing_rights_association'
     ];
 
+    console.log("Headers: ", headers);
     console.log(`Making request to HubSpot... Token length: ${ACCESS_TOKEN.length}`);
 
     try {
