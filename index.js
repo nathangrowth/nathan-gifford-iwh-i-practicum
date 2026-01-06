@@ -11,7 +11,7 @@ app.use(express.json());
 const ACCESS_TOKEN = process.env.ACCESS_TOKEN ? process.env.ACCESS_TOKEN.trim() : '';
 
 app.get('/', async (req, res) => {
-    const OBJECT_TYPE = 'songs';
+    const OBJECT_TYPE = process.env.OBJECT_TYPE;
     const properties = [
         'title',
         'composers',
@@ -22,7 +22,6 @@ app.get('/', async (req, res) => {
         'performing_rights_association'
     ];
 
-    console.log("Headers: ", headers);
     console.log(`Making request to HubSpot... Token length: ${ACCESS_TOKEN.length}`);
 
     try {
