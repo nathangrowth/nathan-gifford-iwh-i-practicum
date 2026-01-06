@@ -8,23 +8,32 @@ app.use(express.static(__dirname + '/public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-const PRIVATE_APP_ACCESS = `pat-na1-718c969c-3419-4d0e-a377-462d5269ef96`;
+const ACCESS_TOKEN = process.env.ACCESS_TOKEN ? process.env.ACCESS_TOKEN.trim() : '';
 
 app.get('/', async (req, res) => {
-    const companies = 'https://api.hubspot.com/crm/v3/objects/contacts';
+    // Use the OBJECT_TYPE from your .env file (should be "songs" or "2-12345...")
+    const objectType = process.env.OBJECT_TYPE || 'songs';
+    
+    // We request specific properties like 'name' and 'artist' (adjust these if your properties are named differently)
+    const songsUrl = `https://api.hubapi.com/crm/v3/objects/${objectType}?properties=name,artist`;
+    
     const headers = {
-        Authorization: `Bearer ${PRIVATE_APP_ACCESS}`,
+        Authorization: `Bearer ${process.env.ACCESS_TOKEN}`,
         'Content-Type': 'application/json'
-    }
+    };
+
+    console.log("Headers: ", headers);
+
     try {
-        const response = await axios.get(companies, { headers });
-        res.json(response.data.results);    
+        const response = await axios.get(songsUrl, { headers });
+        
+        // Render the 'home' pug template and pass the data as 'songs'
+        res.render('home', { songs: response.data.results });    
     } catch (error) {
-        console.error(error);
+        console.error('Error fetching songs:', error.response ? error.response.data : error.message);
+        res.status(500).send('Error retrieving songs. Check console for details.');
     }
 });
-
-const ACCESS_TOKEN = process.env.ACCESS_TOKEN ? process.env.ACCESS_TOKEN.trim() : '';
 
 app.get('/', async (req, res) => {
     const OBJECT_TYPE = 'songs';
