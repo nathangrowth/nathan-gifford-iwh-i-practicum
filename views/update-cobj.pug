@@ -1,0 +1,38 @@
+doctype html
+html(lang="en")
+    head
+        title Update Custom Object Form | Integrating With HubSpot I Practicum.
+        meta(name="viewport" content="width=device-width, initial-scale=1")
+        link(rel="stylesheet", href="/css/style.css")
+    body
+        .form-wrapper
+            h1= title
+
+            if error
+                p.error-msg= error
+            
+            form(method="POST" action=song ? `/update-cobj?id=${song.id}` : '/update-cobj')
+                
+                .form-grid
+                    div
+                        label(for="title") Song Title
+                        input(type="text" name="title" required value=song ? song.properties.title : '')
+                    div
+                        label(for="composers") Composers
+                        input(type="text" name="composers" value=song ? song.properties.composers : '')
+                    div
+                        label(for="ccli_number") CCLI Number
+                        input(type="text" name="ccli_number" value=song ? song.properties.ccli_number : '')
+                    div
+                        label(for="year") Year
+                        input(type="number" name="year" value=song ? song.properties.year : '')
+                    div
+                        label(for="publishers") Publishers
+                        input(type="text" name="publishers" value=song ? song.properties.publishers : '')
+                    div
+                        label(for="performing_rights_association") Rights Association
+                        input(type="text" name="performing_rights_association" value=song ? song.properties.performing_rights_association : '')
+                    div
+                        input.submit-btn(type="submit" value=song ? "Update Song" : "Add Song")
+
+        a.cancel-link(href="/") Return to Catalog

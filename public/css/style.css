@@ -1,6 +1,92 @@
 body { 
-    font-family: sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f7f6;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
     padding: 24px; 
+}
+
+.form-wrapper {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 600px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #444;
+}
+
+input[type="text"], 
+input[type="number"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    box-sizing: border-box;
+    transition: border-color 0.3s;
+}
+
+input[type="text"]:focus, 
+input[type="number"]:focus {
+    border-color: label;
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #444;
+}
+
+.submit-btn {
+    background-color: #003b56;
+    color: white;
+    border: none;
+    padding: 15px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+    transition: background-color 0.3s;
+}
+
+.submit-btn:hover {
+    background-color: #6c9938;
+}
+
+.cancel-link {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: #666;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.cancel-link:hover {
+    text-decoration: underline;
+}
+
+h1 {
+    text-align: center;
+    color: #003b56;
+    margin-bottom: 30px;
 }
 
 table {
@@ -24,6 +110,9 @@ th, td {
 th:first-child {
     min-width: 200px;
 }
+th:last-child {
+    min-width: 100px;
+}
 
 tr:nth-child(even) {
     background-color: #f2f2f2;
@@ -35,4 +124,13 @@ tr:nth-child(odd) {
 
 tr:hover {
     background-color: #e6e6e6;
+}
+
+.error-msg {
+    background-color: #ffe6e6;
+    color: #d93025;
+    padding: 15px;
+    border-radius: 4px;
+    border-left: 5px solid #d93025;
+    margin-bottom: 20px;
 }

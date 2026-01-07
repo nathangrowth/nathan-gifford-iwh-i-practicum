@@ -21,6 +21,7 @@ html
             th Year
             th Publishers
             th Rights Assoc.
+            th Actions
         tbody
           each song in songs
             tr
@@ -30,5 +31,9 @@ html
               td= song.properties.year
               td= song.properties.publishers
               td= song.properties.performing_rights_association
+              td 
+                a(href=`/update-cobj?id=${song.id}`) Edit
+                | &nbsp;|&nbsp;
+                a(href=`/delete-cobj?id=${song.id}` onclick="return confirm('Are you sure you want to delete this song?')") Delete
     else
       p No songs found.
