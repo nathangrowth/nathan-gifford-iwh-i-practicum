@@ -17,7 +17,6 @@ app.get('/', async (req, res) => {
         'composers',
         'ccli_number',
         'year',
-        'lyrics',
         'publishers',
         'performing_rights_association'
     ];

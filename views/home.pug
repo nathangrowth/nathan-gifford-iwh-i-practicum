@@ -1,15 +1,12 @@
 doctype html
 html
   head
-    title= title
-    style.
-      body { font-family: sans-serif; padding: 20px; }
-      table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-      th, td { padding: 10px; border: 1px solid #ddd; text-align: left; }
-      th { background-color: #f4f4f4; }
-      .error { color: red; font-weight: bold; }
+    title= `${title}`
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+    link(rel="stylesheet", href="/css/style.css")
   body
-    h1 Songs Library
+    h1 Song Catalog
+    a(href="/update-cobj") Add a Song
 
     if error
       p.error= error
@@ -22,7 +19,6 @@ html
             th Composers
             th CCLI #
             th Year
-            th Lyrics
             th Publishers
             th Rights Assoc.
         tbody
@@ -32,7 +28,6 @@ html
               td= song.properties.composers
               td= song.properties.ccli_number
               td= song.properties.year
-              td= song.properties.lyrics
               td= song.properties.publishers
               td= song.properties.performing_rights_association
     else
